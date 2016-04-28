@@ -1,0 +1,339 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, button, select, option, textarea, p, blockquote, th, td {
+	font: 12px/20px '微软雅黑', arial, helvetica, verdana, tahoma, sans-serif;
+}
+.c_gray {
+	color: #909090;
+}
+.clearfix {
+	&:after {
+		clear: both;
+		content: "";
+		display: block;
+	}
+}
+input[type="radio"], input[type="checkbox"] {
+	padding: 1px;
+	margin: -1px 0;
+}
+a {
+	cursor: pointer;
+	color: #014ccc;
+	text-decoration: none;
+}
+.f_r {
+	float: right;
+}
+.w_b{
+	  font-weight: bold;
+}
+.t_c {
+	text-align: center;
+}
+.ye_input {
+	vertical-align: middle;
+	padding: 4px 8px;
+	margin: 0;
+	font-size: 14px;
+	color: #555;
+	background: #fff;
+	outline: none;
+	border: 1px solid #999;
+	// -webkit-box-shadow: inset 1px 1px 3px #c3c3c3;
+	// box-shadow: inset 1px 1px 3px #c3c3c3;
+
+	&-focus, &:focus {
+		background: #fff;
+		border-color: #3eabff;
+		// -webkit-box-shadow: 0 0 1px #1681d3, inset 1px 1px 3px #c3c3c3;
+		// box-shadow: 0 0 1px #1681d3, inset 1px 1px 3px #c3c3c3;
+	}
+	&-error,&-error:focus {
+		border-color: #f00;
+		// -webkit-box-shadow: 0 0 1px #c00, inset 1px 1px 3px #c3c3c3;
+		// box-shadow: 0 0 1px #c00, inset 1px 1px 3px #c3c3c3;
+		background: #fff6f6;
+	}
+}
+.ye_ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.colorGrey {
+	color: #959595;
+}
+.ml8 {
+	margin-left: 8px;
+}
+.ml10 {
+	margin-left: 10px;
+}
+.ml20{
+	margin-left: 20px;
+}
+.mb10 {
+	margin-bottom: 10px;
+}
+.mb20 {
+	margin-bottom: 20px;
+}
+.mb30 {
+	margin-bottom: 30px;
+}
+.lh_14{
+	line-height: 14px;
+}
+.lh_12{
+	line-height: 12px;
+}
+.ye_input_area {
+	min-height: 20px;
+	resize: none;
+	overflow: hidden;
+	padding: 5px 5px;
+	margin: 0;
+}
+.ye_subtitle {
+	font-size: 12px;
+	  font-weight: normal;
+}
+.f_10 {
+	font-size: 10px;
+}
+.f_12 {
+	font-size: 12px;
+}
+.f_14 {
+	font-size: 14px;
+}
+.ye_btn {
+	cursor: pointer;
+	vertical-align: middle;
+	display: inline-block;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	border: 1px solid #007dcc;
+	background: #1c98e7;
+
+	&:hover, &:focus {
+		text-decoration: none;
+		outline: none;
+		border-color: #1092e5;
+		background-color: #25a3f3;
+	}
+	.ye_btn_text {
+		cursor: pointer;
+		_float: left;
+		display: block;
+		padding: 0 10px;
+		height: 28px;
+		line-height: 27px;
+		line-height: 28px\9;
+		font-size: 12px;
+		font-weight: normal;
+		border-radius: 3px;
+		text-decoration: none;
+		outline: none;
+		color: #fff;
+	}
+	&-disable {
+		cursor: default !important;
+		border-color: #e2e2e2 !important;
+		background-color: #f2f2f2 !important;
+
+		.ye_btn_text {
+			color: #bbb !important;
+		}
+		&:hover, &:focus, &:active {
+			border-color: #e2e2e2 !important;
+			background-color: #f2f2f2 !important;
+		}
+	}
+	&_s {
+		min-width: 55px;
+		height: 22px;
+		line-height: 22px;
+
+		.ye_btn_text {
+			min-width: 35px;
+			_width: 35px;
+			padding: 0 10px;
+			height: 22px;
+			line-height: 23px;
+			line-height: 22px\9;
+			font-size: 12px;
+			font-weight: normal;
+		}
+	}
+	&_l {
+		min-width: 106px;
+		height: 38px;
+		line-height: 38px;
+
+		.ye_btn_text {
+			min-width: 76px;
+			_width: 76px;
+			padding: 0 15px;
+			height: 38px;
+			line-height: 37px;
+			line-height: 38px\9;
+			font-size: 14px;
+			font-weight: normal;
+			font-family: "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+		}
+	}
+}
+.ye_btn_middle {
+	min-width: 79px;
+	height: 28px;
+	line-height: 28px;
+
+	.ye_btn_text {
+		min-width: 59px;
+		_width: 59px;
+		padding: 0 10px;
+		height: 28px;
+		line-height: 27px;
+		line-height: 28px\9;
+		font-size: 12px;
+		font-weight: normal;
+	}
+}
+.ye_btnsub_middle, .ye_btn_grey {
+	border-color: #d1d1d1;
+	background-color: #f2f2f2;
+
+	&:hover, &:focus {
+		border-color: #e2e2e2;
+		background-color: #f4f7fa;
+	}
+	.ye_btn_text {
+		color: #555;
+	}
+}
+.ye_error {
+	color: #cc6666;
+	text-align: left;
+	display: none;
+	font-size: 12px;
+	height: 12px;
+	line-height: 12px;
+	margin: 5px 0;
+}
+.ye_act {
+	cursor: pointer;
+}
+.ye_checkbox {
+	width: 20px;
+	margin: 0;
+	vertical-align: middle;
+	display: inline-block;
+	height: 16px;
+}
+.ye_btn_large {
+	min-width: 106px;
+	height: 38px;
+	line-height: 38px;
+
+	.ye_btn_text {
+		min-width: 76px;
+		_width: 76px;
+		padding: 0 15px;
+		height: 38px;
+		line-height: 37px;
+		line-height: 38px\9;
+		font-size: 14px;
+		font-weight: normal;
+		font-family: "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+	}
+}
+.c_red {
+	color: #cc6666;
+}
+
+/*window dialog*/
+.ye_qwindow {
+	z-index: 30000;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px;
+	visibility: hidden;
+
+	a {
+		color: #3399e0;
+	}
+}
+.ye_qwindow .ye_winbox {
+	z-index: 2;
+	position: relative;
+	border: 1px solid #cacaca;
+}
+.ye_qwindow .ye_winbg {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background: #545454;
+	opacity: 0.2;
+	filter: alpha(opacity=20);
+	border-radius: 3px;
+	// box-shadow: 0 0 5px #395680;
+	// _width: expression(this.parentNode.scrollWidth +"px");
+	// _height: expression(this.parentNode.scrollHeight +"px");
+}
+.ye_qwindow .ye_winhead {
+	z-index: 2;
+	position: relative;
+	background: #fff;
+}
+.ye_qwindow .ye_winhead .ye_wintitle {
+	display: none;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 10px;
+	font-size: 14px;
+	color: #555;
+	font-weight: bold;
+	border-bottom: 1px solid #c5c5c5;
+	overflow: hidden;
+}
+.ye_qwindow .ye_winhead .ye_winclose {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	background: url(/index/img/master.png) no-repeat -288px -320px;
+}
+.ye_qwindow .ye_winbody {
+	z-index: 1;
+	position: relative;
+	background: #fff;
+	overflow: hidden;
+}
+.ye_qwindow .ye_winbody iframe {
+	width: 100%;
+	height: 100%;
+}
+.ye_qwindow_mask {
+	z-index: 30000;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	background: #545454;
+	width: 100%;
+	height: 100%;
+	opacity: 0.50;
+	filter: alpha(opacity=50);
+}
+
+/*form*/

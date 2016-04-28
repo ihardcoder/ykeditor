@@ -1,0 +1,21 @@
+{
+  "name": "ykEditor",
+  "version": "1.0.0",
+  "author": "zhoujunpeng",
+  "filename": "ykEditor",
+  "discription": "优酷图文发布器",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-compress": "~0.5.3",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-qunit": "*",
+    "grunt-contrib-watch": "*"
+  },
+  "dependencies": {
+    "grunt-jsdoc": "^1.0.0",
+    "jaguarjs-jsdoc": "0.0.1",
+    "jsdoc": "^3.3.3"
+  }
+}

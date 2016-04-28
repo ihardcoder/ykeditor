@@ -1,0 +1,137 @@
+.edui-for-yevideo {
+	.edui-button-body {
+		.edui-label {
+			padding-right: 5px;
+		}
+		.edui-icon {
+			background: url(/u/img/ykeditor/icons.png) no-repeat -58px 0 !important;
+			width: 16px !important;
+			height: 13px !important;
+			vertical-align: middle;
+			margin: -3px 5px 0 5px;
+		}
+	}
+}
+#qWindowBox_yevideo {
+	position: relative;
+	height: 100%;
+	padding: 0;
+
+	.qWindowBox_yevideo_head {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		background-color: #e7e7e7;
+		height: 30px;
+		line-height: 30px;
+		font-size: 14px;
+		color: #909090;
+		padding-left: 20px;
+	}
+	.qWindowBox_yevideo_body {
+		padding: 40px 20px 0;
+	}
+	.item-layout {
+		.search {
+			width: 770px;
+			margin-top: 10px;
+		}
+	}
+	.item-control {
+		margin: 0;
+		padding-top: 20px;
+		position: absolute;
+		left: 0;
+		bottom: 20px;
+		width: 100%;
+		border-top: solid 1px #e7e7e7;
+	}
+	.yevideo_nav {
+		border-bottom: solid 3px #e7e7e7;
+		height: 35px;
+		box-sizing: border-box;
+		position: relative;
+
+		.myvideo, .othervideo {
+			position: absolute;
+			top: 0;
+			height: 35px;
+			box-sizing: border-box;
+			border: none;
+			padding: 0;
+			font-size: 16px;
+			color: #555;
+
+			&.select {
+				border-bottom: solid 3px #06a7e1;
+				background: #fff;
+				color: #06a7e1;
+			}
+		}
+		.myvideo {
+			left: 0;
+		}
+		.othervideo {
+			left: 85px;
+		}
+	}
+	.item-left {
+		width: 110px;
+		border-right: none;
+
+		.myupload, .mycollect {
+			display: block;
+			height: 34px;
+			background-color: #e7e7e7;
+			line-height: 34px;
+			width: 110px;
+			text-align: center;
+
+			&:hover {
+				color: #c31;
+			}
+		}
+		.select {
+			background-color: #06a7e1;
+			color: #fff;
+
+			&:hover {
+				color: #fff;
+			}
+		}
+	}
+	.item-right {
+		width: 650px;
+
+		.yevideo_list {
+			border-top: 1px solid #eee;
+
+			.yevideo_item {
+				border-bottom: 1px solid #eee;
+				height: inherit;
+				overflow: hidden;
+				padding: 12px 0;
+				cursor: pointer;
+
+				&-focused {
+					background-color: #edf8fc;
+					border-bottom: solid 1px #bbe5f5;
+				}
+			}
+			.item-title {
+				color: #555;
+				font-size: 14px;
+				height: 14px;
+				line-height: 14px;
+				margin-bottom: 10px;
+			}
+			.item-date {
+				color: #909090;
+				font-size: 14px;
+				height: 14px;
+				line-height: 14px;
+			}
+		}
+	}
+}

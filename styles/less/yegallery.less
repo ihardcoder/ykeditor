@@ -1,0 +1,228 @@
+.ye_cover_gallery {
+	margin-left: 20px;
+}
+#qWindowBox_yegallery {
+	position: relative;
+	height: 100%;
+	padding: 0;
+
+	.qWindowBox_yegallery_head {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		background-color: #e7e7e7;
+		height: 30px;
+		line-height: 30px;
+		font-size: 14px;
+		color: #909090;
+		padding-left: 20px;
+	}
+	.qWindowBox_yegallery_body {
+		padding: 30px 20px 0;
+	}
+	.yegallery_upload {
+		margin-top: 20px;
+		height: 30px;
+		color: #bbb;
+		text-align: right;
+
+		.yegallery_upload_btn {
+			margin-left: 10px;
+			position: relative;
+		}
+	}
+	.qWindowBox_yegallery_act {
+		position: absolute;
+		left: 0;
+		bottom: 20px;
+		width: 100%;
+		text-align: center;
+		padding-top: 20px;
+		border-top: solid 1px #e7e7e7;
+		color: #909090;
+		font-size: 14px;
+
+		.qWindowBox_yegallery_slectedsum {
+			position: absolute;
+			display: block;
+			top: 50%;
+			height: 14px;
+			line-height: 14px;
+			margin-top: 3px;
+			left: 50%;
+			margin-left: -185px;
+		}
+	}
+	.yegallery_gallery_box {
+		margin-top: 40px;
+		margin-left: -20px;
+		width: 830px;
+		height: 340px;
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		.yegallery_gallery_list {
+			padding: 0 8px;
+			width: 100%;
+			overflow-y: auto;
+		}
+	}
+	.yegallery_gallery_item {
+		height: 140px;
+		width: 180px;
+		margin: 0 10px 20px;
+		display: inline-block;
+
+		&-checked {
+			.gallery_item_thumb {
+				.thumb_cover_checked {
+					display: block;
+				}
+			}
+		}
+	}
+	.gallery_item_thumb {
+		height: 100px;
+		position: relative;
+		cursor: pointer;
+
+		.thumb_cover {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 180px;
+			height: 102px;
+			display: none;
+
+			&_checked {
+				background: url("/u/img/ykeditor/cover-checked.png") no-repeat;
+			}
+		}
+		.ye_icon_close_cube {
+			position: absolute;
+			top: 0;
+			right: 0;
+			cursor: pointer;
+		}
+		.thumb_img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.gallery_item_entry {
+		border: solid 1px #efefef;
+		height: 40px;
+		box-sizing: border-box;
+		border-top: none;
+		padding: 10px;
+
+		.entry_name {
+			color: #909090;
+			font-size: 12px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			width: 150px;
+			display: block;
+			overflow: hidden;
+		}
+	}
+	.yegallery_gallery_loading {
+		display: none;
+
+		.ye_loading-64 {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -32px 0 0 -32px;
+		}
+	}
+	.yegallery_gallery_error {
+		height: 24px;
+		text-align: center;
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		margin-top: -12px;
+		display: none;
+
+		.ye_icon_error {
+			vertical-align: bottom;
+		}
+		.yegallery_gallery_error_hint {
+			font-size: 24px;
+			height: 24px;
+			line-height: 24px;
+			color: #555;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.yegallery_gallery_error_act {
+			cursor: pointer;
+			color: #3399e0;
+
+			&:hover {
+				color: #c31;
+			}
+		}
+	}
+	.yegallery_gallery_empty {
+		height: 24px;
+		text-align: center;
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		margin-top: -12px;
+		display: none;
+
+		.yegallery_gallery_empty_hint {
+			font-size: 24px;
+			height: 24px;
+			line-height: 24px;
+			color: #555;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.yegallery_gallery_empty_act {
+			cursor: pointer;
+			color: #3399e0;
+		}
+	}
+	.qPager_gallery {
+		clear: both;
+		height: 22px;
+		_overflow: hidden;
+		position: absolute;
+		right: 20px;
+		bottom: 110px;
+	}
+}
+#yegallery_upload_form {
+	position: absolute;
+	width: 80px;
+	height: 30px;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	filter: alpha(opacity=0);
+
+	.yegallery_upload_file {
+		width: 100%;
+		height: 100%;
+	}
+}
+#yegallery_upload_form_empty {
+	position: absolute;
+	width: 90px;
+	height: 30px;
+	top: 0;
+	left: 50%;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	margin-left: 20px;
+
+	.yegallery_upload_file_empty {
+		width: 100%;
+		height: 100%;
+	}
+}

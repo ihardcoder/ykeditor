@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: dialog/dialog.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: dialog/dialog.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>YE.Dialog = {
+  /**
+   * @desc 隐藏全部弹层
+   */
+  clearAll: function() {
+    $(".ye_qwindow").hide();
+    $(".ye_qwindow_mask").hide();
+  },
+  /**
+   * @desc 遮罩层
+   */
+  cover: function() {
+    if (!YE.dialog_cover) {
+      var html = "";
+      html += "&lt;div class='ye_qmask'>";
+      html += "&lt;div class='ye_qmask_cover'>&lt;/div>";
+      html += "&lt;i class='ye_loading-64'>&lt;/i>";
+      html += "&lt;/div>";
+      $("body").append($(html));
+      YE.dialog_cover = $(".ye_qmask");
+    }
+    YE.dialog_cover.css({
+      width: document.documentElement.scrollWidth || document.body.scrollWidth,
+      height: document.documentElement.scrollHeight || document.body.scrollHeight
+    }).show();
+  },
+
+  /**
+   * @desc 错误提示弹层
+   * @param {string} msg - 提示文案
+   * @param {object} size - 弹窗尺寸
+   */
+  error: function(msg, size) {
+    var _size = {
+      width: 200,
+      height: 90
+    };
+    if (size) {
+      _size.width = size.width || 200;
+      _size.height = size.height || 90;
+    }
+    if (!YE.dialog_error) {
+      YE.dialog_error = new YE.Util.Qwindow({
+        posrefer: window,
+        showhandle: true,
+        showmask: true,
+        elements: '',
+        maskstyle: {
+          'color': '#000',
+          'opacity': 0.5
+        }
+      });
+    }
+    var html = [
+      '&lt;div class="errorBox" >',
+      '&lt;div class="errorBox-msg clearfix">',
+      '&lt;span class="ye_icon ye_icon_error">&lt;/span>',
+      msg,
+      '&lt;/div>',
+      '&lt;/div>',
+    ];
+    YE.dialog_error.setContent('html', html.join(''));
+    YE.dialog_error.setSize(_size.width, _size.height);
+    YE.dialog_error.show();
+    setTimeout(function() {
+      YE.dialog_error.hide();
+    }, 1500);
+  },
+  /**
+   * @desc 警告提示弹层
+   * @param {string} msg - 提示文案
+   */
+  warning: function(msg) {
+    if (!YE.dialog_warning) {
+      YE.dialog_warning = new YE.Util.Qwindow({
+        size: {
+          width: 200,
+          height: 120
+        },
+        posrefer: window,
+        showhandle: true,
+        showmask: true,
+        elements: '',
+        maskstyle: {
+          'color': '#000',
+          'opacity': 0.5
+        }
+      });
+    }
+    var html = [
+      '&lt;div class="warnBox" >',
+      '&lt;div class="warnBox-msg clearfix">',
+      '&lt;span class="ye_icon ye_icon_warn">&lt;/span>',
+      msg,
+      '&lt;/div>',
+      '&lt;/div>',
+    ];
+    YE.dialog_warning.setContent('html', html.join(''));
+    YE.dialog_warning.setSize(200, 90);
+    YE.dialog_warning.show();
+    setTimeout(function() {
+      YE.dialog_warning.hide();
+    }, 5000);
+  },
+
+  /**
+   * @desc 成功提示弹层
+   * @param {string} msg - 提示文案
+   * @param {string} [url] - 如果参数url不为空，提示后跳转url
+   */
+  success: function(msg, url) {
+    var close_time = 1500; //1.5S 后隐藏
+    var success_layer = new YE.Util.Qwindow({
+      size: {
+        width: 200,
+        height: 80
+      },
+      posrefer: window,
+      showhandle: true,
+      showmask: true,
+      elements: '',
+      maskstyle: {
+        'color': '#000',
+        'opacity': 0.5
+      }
+    });
+    var html = [
+      '&lt;div class="ye_finishBox">',
+      '&lt;div class="ye_finishBox-msg clearfix">',
+      '&lt;span class="ye_icon ye_icon_finish">&lt;/span>',
+      '&lt;span class="ye_finish_text">' + msg + '&lt;/span>',
+      '&lt;/div>',
+      '&lt;/div>',
+    ];
+    success_layer.setContent('html', html.join(""));
+    success_layer.show();
+    setTimeout(function() {
+      success_layer.hide();
+      if (url) {
+        window.location.href = url;
+      }
+    }, close_time);
+  },
+  /**
+   * @desc 上传loading弹层
+   * @param {string} msg - 提示文案
+   */
+  uploading: function(msg) {
+    if (!YE.dialog_uploading) {
+      YE.dialog_uploading = new YE.Util.Qwindow({
+        size: {
+          width: 200,
+          height: 120
+        },
+        posrefer: window,
+        showhandle: false,
+        showmask: true,
+        elements: '',
+        maskstyle: {
+          'color': '#000',
+          'opacity': 0.5
+        }
+      });
+    }
+    var tip = msg || "上传中…";
+
+    var html = ['&lt;div class="loadingBox" id="loadingBox">',
+      '&lt;div class="loadingBox-msg clearfix">',
+      '&lt;span>' + tip + '&lt;/span>',
+      '&lt;/div>',
+      '&lt;div class="loadingBox-btn">&lt;img src="' + YE.config.domain +
+      '/u/img/pushRM/loading_64.gif" width="32">&lt;/div>',
+      '&lt;/div>'
+    ];
+    YE.dialog_uploading.setContent('html', html.join(''));
+    YE.dialog_uploading.show();
+    // return layer;
+  },
+
+  /**
+   * @desc 确认提示弹层
+   * @param {string} msg - 提示文案
+   * @param {function} [fn] - 点击确定按钮的回调函数
+   * @param {object} [size] - 弹窗尺寸
+   */
+  confirm: function(msg, fn, size) {
+    var _width = (size &amp;&amp; size.width) || 200,
+      _height = (size &amp;&amp; size.height) || 120;
+    // 校验都OK了，问一下确认
+    var confirm = new YE.Util.Qwindow({
+      size: {
+        width: _width,
+        height: _height
+      },
+      posrefer: window,
+      showhandle: true,
+      showmask: true,
+      elements: '',
+      maskstyle: {
+        'color': '#000',
+        'opacity': 0.5
+      }
+    });
+    var html = [
+      '&lt;div class="ye_dialog_confirm">',
+      '&lt;div class="ye_dialog_confirm_msg clearfix">',
+      '&lt;span class="ye_icon ye_icon_alert">&lt;/span>',
+      '&lt;span class="ye_confirm_text">' + msg + '&lt;/span>',
+      '&lt;/div>',
+      '&lt;div class="ye_dialog_confirm_btn">&lt;div class="ye_btn ye_btn_s">&lt;span class="ye_btn_text" _cf_for="ok" >确定&lt;/span>&lt;/div> &lt;div class="ye_btn ye_btn_s ye_btn_grey">&lt;span class="ye_btn_text" _cf_for="cancel">取消&lt;/span>&lt;/div>&lt;/div>',
+      '&lt;/div>',
+    ];
+    confirm.setContent('html', html.join(""));
+    confirm.show();
+    var $confirm_btn = $(confirm.dom.winbody).find('[_cf_for="ok"]');
+    var $cancel_btn = $(confirm.dom.winbody).find('[_cf_for="cancel"]');
+
+    function bind() {
+      $confirm_btn.on('click', function() {
+        confirm.hide();
+        if (typeof fn == 'function') {
+          fn();
+        }
+      });
+      $cancel_btn.on('click', function() {
+        confirm.hide();
+      });
+    }
+    bind();
+    return;
+  },
+
+  /**
+   * @desc 预览弹层
+   */
+  preview: function(img, title, url) {
+    if (!YE.dialog_preview) {
+      YE.dialog_preview = new YE.Util.Qwindow({
+        size: {
+          width: 830,
+          height: 590
+        },
+        scrolling: false,
+        showhandle: true,
+        showmask: true,
+        pos: {
+          top: 'top',
+          left: 'center'
+        },
+        maskstyle: {
+          'color': '#000',
+          'opacity': 0.5
+        },
+        onhide: function() {
+          YE.dialog_preview.setContent("html", "");
+        }
+      });
+    }
+
+    var html = [
+      '&lt;div class="qWindowBox qWindowBox_ye" id="qWindowBox_yepreview">',
+      '&lt;div class="qWindowBox_yepreview_head">广播预览&lt;/div>',
+      '&lt;div class="qWindowBox_yepreview_body">',
+      '&lt;div class="preview_qcode">',
+      '&lt;h4 class="preview_qcode_hint">手机扫描二维码预览&lt;/h4>',
+      '&lt;h4 class="preview_qcode_hint" style="font-size:14px;margin-top:-10px;">预览内容仅10分钟内有效&lt;/h4>',
+      '&lt;div class="preview_qcode_thumb">',
+      '&lt;img class="preview_qcode_img" src="' + img + '">',
+      '&lt;div class="preview_qcode_cover">',
+      '&lt;i class="ye_icon_refresh">&lt;/i>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;div class="preview_page">',
+      '&lt;p class="preview_page_title">' + title + '&lt;/p>',
+      '&lt;iframe class="preview_page_iframe" frameborder="0" scrolling="auto" src="' +
+      url + '">&lt;/iframe>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;/div>'
+    ].join("");
+    YE.dialog_preview.setContent("html", html);
+    YE.dialog_preview.show();
+  },
+  /**
+   * @desc 上传正文图片
+   * @param {string|number} id - 编辑器的id
+   */
+  uploadQW: function(id) {
+    if (YE.dialog_uploadQW) {
+      YE.dialog_uploadQW.destroy();
+    }
+    var action = YE.config.domain + YE.URL_UPLOAD_IMG +
+      "?push_upload_type=editor&amp;callback=parent.YE.Handler.afterUploadQW&amp;ykeditor_id=" +
+      id;
+    YE.dialog_uploadQW = new YE.Util.Qwindow({
+      size: {
+        width: 200,
+        height: 120
+      },
+      posrefer: window,
+      showhandle: true,
+      showmask: true,
+      elements: '',
+      maskstyle: {
+        'color': '#000',
+        'opacity': 0.5
+      }
+    });
+    var target = 'upload_iframe_' + new Date().getTime();
+    var html = [
+      '&lt;div class="selectImageBox" id="selectImageBox">',
+      '&lt;div class="selectImageBox-msg clearfix">',
+      '&lt;span>请选择图片&lt;/span>',
+      '&lt;/div>',
+      '&lt;div class="selectImageBox-btn">',
+      '&lt;iframe name="' + target + '" style="display:none;">&lt;/iframe>',
+      '&lt;form method="post" id="qw_upimg_form" enctype="multipart/form-data" target="' +
+      target + '" action="' + action + '">',
+      '&lt;div class="ye_btn ye_btn_s ye_btnmaj_s" >&lt;span class="ye_btn_text">浏览&lt;/span>&lt;/div>',
+      '&lt;input type="file" name="upfile" class="upfile" style="position:absolute;opacity:0;filter: alpha(opacity=0);z-index:999;left:72px;top:65px;width:57px;height:24px;" onchange="YE.Handler.onUploadQW(this,' +
+      id + ')">',
+      '&lt;/form>',
+      '&lt;/div>',
+      '&lt;/div>',
+    ].join('');
+    YE.dialog_uploadQW.setContent('html', html);
+    YE.dialog_uploadQW.show();
+  },
+  /**
+   * @desc 上传正文图片报错弹层
+   * @param {string|number} id - 编辑器的id
+   * @param {string} title - 错误提示文案
+   */
+  uploadQW_error: function(id, title) {
+    var target = "";
+    var action = YE.config.domain + YE.URL_UPLOAD_IMG +
+      "?push_upload_type=editor&amp;callback=parent.YE.Handler.afterUploadQW&amp;ykeditor_id=" +
+      id;
+    if (!YE.dialog_uploadQW_error) {
+      YE.dialog_uploadQW_error = new YE.Util.Qwindow({
+        size: {
+          width: 200,
+          height: 120
+        },
+        posrefer: window,
+        showhandle: true,
+        showmask: true,
+        elements: '',
+        maskstyle: {
+          'color': '#000',
+          'opacity': 0.5
+        }
+      });
+    }
+    target = 'upload_iframe_' + new Date().getTime();
+    var html = '&lt;div class="uploadQW_errorBox">';
+    html += '&lt;div class="uploadQW_errorBox-msg clearfix">';
+    html += '&lt;span class="ye_icon ye_icon_error">&lt;/span>';
+    html += title;
+    html += '&lt;/div>';
+    html += '&lt;div class="uploadQW_errorBox-btn">';
+    html += '&lt;div class="ye_btn ye_btn_s ye_btnmaj_s">';
+    html += '&lt;span class="ye_btn_text">';
+    html += '重新上传图片';
+    html += '&lt;/span>';
+    html += '&lt;iframe name="' + target + '" style="display:none;">&lt;/iframe>';
+    html += '&lt;form method="post" enctype="multipart/form-data" target="' +
+      target + '" action="' + action + '">';
+    html +=
+      '&lt;input type="file" name="upfile" class="upfile" onchange="YE.Handler.onUploadQW(this,' +
+      id + ')">';
+    html += '&lt;/form>';
+    html += '&lt;/div>';
+    html += '&lt;/div>';
+    html += '&lt;/div>';
+    YE.dialog_uploadQW_error.setContent('html', html);
+    YE.dialog_uploadQW_error.show();
+  },
+  /**
+   * @desc 图片库弹层
+   * @param {string} type  - 弹层的状态
+   * @param {string} target - 插入图片的区域(cover/editor)
+   * @param {string} ctx - 图片库html碎片
+   */
+  gallery: function(type, target, ctx) {
+    var _type = type || "loading";
+    var _target = target || "editor";
+    var content = "";
+    var action = YE.config.domain + YE.URL_UPLOAD_IMG +
+      "?callback=parent.YE.Handler.afterUploadGE&amp;ykeditor_id=" + YE.FAKE_ID +
+      "&amp;isfromgallery=true";
+    var maxCount = _target === "cover" ? 1 : YE.MAX_COUNT_GALLERY_CHECKED;
+    var checked_count = (YE.checked_id &amp;&amp; YE.checked_id.length) || 0;
+    if (!YE.dialog_gallery) {
+      YE.dialog_gallery = new YE.Util.Qwindow({
+        size: {
+          width: 830,
+          height: 590
+        },
+        posrefer: window,
+        showhandle: true,
+        showmask: true,
+        elements: '',
+        maskstyle: {
+          'color': '#000',
+          'opacity': 0.5
+        },
+        onhide: function() {
+          // 关闭图片库后清空选中状态
+          YE.checked_id = [];
+        }
+      });
+    }
+    if (_target === "cover") {
+      action += "&amp;push_upload_type=cover";
+    } else if (_target === "editor") {
+      action += "&amp;push_upload_type=editor";
+    }
+    switch (_type) {
+      case "empty":
+        content = [
+          '&lt;div class="yegallery_gallery_empty" style="display:block">',
+          '&lt;i class="ye_icon ye_icon_notice_blue">&lt;/i>',
+          '&lt;p class="yegallery_gallery_empty_hint">没有图片，请&lt;span class="yegallery_gallery_empty_act">本地上传&lt;/span>图片&lt;/p>',
+          '&lt;form method="post" enctype="multipart/form-data" action="' +
+          action +
+          '" target="yegallery_upload_iframe" id="yegallery_upload_form_empty">',
+          '&lt;input type="file" name="upfile" class="yegallery_upload_file yegallery_upload_file_empty">',
+          '&lt;/form>',
+          '&lt;/div>',
+          '&lt;div class="yegallery_gallery_box">',
+          '&lt;ul class="yegallery_gallery_list clearfix">',
+          '&lt;/ul>',
+          '&lt;/div>'
+        ].join("");
+        break;
+      case "error":
+        content = [
+          '&lt;div class="yegallery_gallery_error" style="display:block">',
+          '&lt;i class="ye_icon ye_icon_error">&lt;/i>',
+          '&lt;p class="yegallery_gallery_error_hint">加载失败，请检查网络状况或&lt;span class="yegallery_gallery_error_act">刷新&lt;/span>&lt;/p>',
+          '&lt;/div>'
+        ].join("");
+        break;
+      case "content":
+        content = ctx;
+        break;
+      case "loading":
+        content = [
+          '&lt;div class="yegallery_gallery_loading" style="display:block;">',
+          '&lt;i class="ye_loading-64">&lt;/i>',
+          '&lt;/div>'
+        ].join("");
+        break;
+    }
+    var html = [
+      '&lt;div class="qWindowBox" id="qWindowBox_yegallery">',
+      '&lt;div class="qWindowBox_yegallery_head">从图片库选择&lt;/div>',
+      '&lt;div class="qWindowBox_yegallery_body">',
+      '&lt;div class="yegallery_upload">',
+      '&lt;span>建议尺寸：640 x 360 px&lt;/span>',
+      '&lt;div class="ye_btn yegallery_upload_btn">',
+      '&lt;span class="ye_btn_text">本地上传&lt;/span>',
+      '&lt;iframe name="yegallery_upload_iframe" style="display:none;">&lt;/iframe>',
+      '&lt;form method="post" enctype="multipart/form-data" action="' +
+      action +
+      '" target="yegallery_upload_iframe" id="yegallery_upload_form">',
+      '&lt;input type="file" name="upfile" class="yegallery_upload_file">',
+      '&lt;/form>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;div class="yegallery_gallery">',
+      content,
+      '&lt;/div>',
+      '&lt;div class="qWindowBox_yegallery_act">',
+      '&lt;span class="qWindowBox_yegallery_slectedsum">已选' + checked_count +
+      '个，可选' + maxCount + '个&lt;/span>',
+      '&lt;div class="ye_btn ye_btn_l ye_btnmaj_l qWindowBox_yegallery_act_btn ye_btn-disable">',
+      '&lt;span class="ye_btn_text" _for="add">完成&lt;/span>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;/div>',
+    ].join("");
+    YE.dialog_gallery.setContent('html', html);
+    YE.dialog_gallery.target = _target;
+    YE.dialog_gallery.show();
+    // 更新图片库选择状态
+    if (type === "content") {
+      YE.updateGallery(_target);
+    }
+  },
+
+  /**
+   * @desc 音频库
+   * @param {string} type - 弹层的类型
+   * @param {string} ctx - 图片库html碎片
+   */
+  audio: function(type, ctx) {
+    var _type = type || "loading";
+    var content = "";
+    // 上传接口
+    var action = YE.URL_AJAX_UPLOAD_AUDIO +
+      "?callback=parent.YE.Handler.afterUploadAudio";
+    if (!YE.dialog_audio) {
+      YE.dialog_audio = new YE.Util.Qwindow({
+        size: {
+          width: 830,
+          height: 590
+        },
+        posrefer: window,
+        showhandle: true,
+        showmask: true,
+        elements: '',
+        maskstyle: {
+          'color': '#000',
+          'opacity': 0.5
+        },
+        onhide: function() {
+          try {
+            soundManager.pauseAll();
+          } catch (e) {}
+        }
+      });
+    }
+
+    switch (_type) {
+      case "empty":
+        content = [
+          '&lt;div class="yeaudio_empty" style="display:block">',
+          '&lt;i class="ye_icon ye_icon_notice_blue">&lt;/i>',
+          '&lt;p class="yeaudio_empty_hint">没有语音，请&lt;span class="yeaudio_empty_act">上传语音&lt;/span>&lt;/p>',
+          '&lt;form method="post" enctype="multipart/form-data" action="' +
+          action +
+          '" target="yeaudio_upload_iframe" id="yeaudio_upload_form_empty">',
+          '&lt;input type="file" name="audio" class="yeaudio_upload_file yeaudio_upload_file_empty" accept=".mp3,.wma,.wav,.amr">',
+          '&lt;/form>',
+          '&lt;/div>'
+        ].join("");
+        break;
+      case "error":
+        content = [
+          '&lt;div class="yeaudio_error" style="display:block">',
+          '&lt;i class="ye_icon ye_icon_error">&lt;/i>',
+          '&lt;p class="yeaudio_error_hint">加载失败，请检查网络状况或&lt;span class="yeaudio_error_act">刷新&lt;/span>&lt;/p>',
+          '&lt;/div>'
+        ].join("");
+        break;
+      case "content":
+        content = ctx;
+        break;
+      case "loading":
+        content = ['&lt;div class="yeaudio_loading" style="display:block;">',
+          '&lt;i class="ye_loading-64-white">&lt;/i>',
+          '&lt;/div>'
+        ].join("");
+        break;
+    }
+
+    var html = [
+      '&lt;div class="qWindowBox" id="qWindowBox_yeaudio">',
+      '&lt;div class="qWindowBox_yeaudio_head">添加语音&lt;/div>',
+      '&lt;div class="qWindowBox_yeaudio_body">',
+      '&lt;div class="yeaudio_upload">',
+      '&lt;span>格式支持mp3\\wma\\wav\\amr，文件大小不超过30MB，语音建议30分钟以内&lt;/span>',
+      '&lt;div class="ye_btn yeaudio_upload_btn">',
+      '&lt;span class="ye_btn_text">本地上传&lt;/span>',
+      '&lt;iframe name="yeaudio_upload_iframe" style="display:none;">&lt;/iframe>',
+      '&lt;form method="post" enctype="multipart/form-data" action="' +
+      action +
+      '" target="yeaudio_upload_iframe" id="yeaudio_upload_form">',
+      '&lt;input type="file" name="audio" class="yeaudio_upload_file" accept=".mp3,.wma,.wav,.amr">',
+      '&lt;/form>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;div class="yeaudio_container">',
+      content,
+      '&lt;/div>',
+      '&lt;div class="qWindowBox_yeaudio_act">',
+      '&lt;div class="ye_btn ye_btn_l ye_btnmaj_l qWindowBox_yeaudio_act_btn ye_btn-disable">',
+      '&lt;span class="ye_btn_text" _for="add">完成&lt;/span>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;/div>',
+      '&lt;/div>',
+    ].join("");
+    YE.dialog_audio.setContent('html', html);
+    YE.dialog_audio.show();
+  }
+
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="YKEditor.html">YKEditor</a></li></ul><h3>Namespaces</h3><ul><li><a href="YE.html">YE</a></li><li><a href="YE.Ajax.html">Ajax</a></li><li><a href="YE.Bind.html">Bind</a></li><li><a href="YE.Dialog.html">Dialog</a></li><li><a href="YE.Handler.html">Handler</a></li><li><a href="YE.Plugins.html">Plugins</a></li><li><a href="YE.UI.html">UI</a></li><li><a href="YE.Util.html">Util</a></li><li><a href="YKEditor_UI.html">UI</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Nov 18 2015 10:31:06 GMT+0800 (CST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
